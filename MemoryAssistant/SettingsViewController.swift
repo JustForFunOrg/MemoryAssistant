@@ -29,9 +29,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIPickerVie
 
     override func didMoveToParentViewController(parent: UIViewController?) {
         if let text = notificationText.text {
-            Const.sharedInstance.notificationText(text)
+            StorageHelper.sharedInstance.notificationText(text)
         } else {
-            Const.sharedInstance.notificationText("")
+            StorageHelper.sharedInstance.notificationText("")
         }
 
         timePickerChanged()
@@ -46,7 +46,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat =  "HH:mm"
 
-        let periodicity = Const.sharedInstance.periodicity()
+        let periodicity = StorageHelper.sharedInstance.periodicity()
         let periodicityInHours = Int(floor(Double(periodicity) / Double(Const.HOUR)))
         let periodicityInMinutes = (periodicity - (periodicityInHours * Const.HOUR)) / Const.MINUTE
 
@@ -61,7 +61,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, UIPickerVie
         let components = calendar.components([NSCalendarUnit.Hour, NSCalendarUnit.Minute] , fromDate: date)
         let periodicity = (Const.HOUR * components.hour + components.minute * Const.MINUTE)
 
-        Const.sharedInstance.periodicity(periodicity)
+        StorageHelper.sharedInstance.periodicity(periodicity)
     }
 
     func localResignFirstResponder() {

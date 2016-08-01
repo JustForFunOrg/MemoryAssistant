@@ -22,18 +22,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        notificationState.setOn(Const.sharedInstance.isNotificationTurnedOn(), animated: false)
+        notificationState.setOn(StorageHelper.sharedInstance.isNotificationTurnedOn(), animated: false)
     }
 
     override func viewDidDisappear(animated: Bool) {
-        if Const.sharedInstance.isFirstLaunch() {
-            Const.sharedInstance.setFirstLaunched()
+        if StorageHelper.sharedInstance.isFirstLaunch() {
+            StorageHelper.sharedInstance.setFirstLaunched()
         }
         super.viewDidDisappear(animated)
     }
 
     func setupTimer() {
-        let seconds = Const.sharedInstance.periodicity()
+        let seconds = StorageHelper.sharedInstance.periodicity()
         let delay = Double(seconds) * Double(NSEC_PER_SEC) // nanoseconds per seconds
 
         let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
@@ -61,16 +61,16 @@ class ViewController: UIViewController {
         notifyAlarm.timeZone = NSTimeZone.defaultTimeZone()
         notifyAlarm.soundName = UILocalNotificationDefaultSoundName
         notifyAlarm.category = "memoryAssistant"
-        notifyAlarm.alertBody = "\(Const.sharedInstance.notificationText())"
+        notifyAlarm.alertBody = "\(StorageHelper.sharedInstance.notificationText())"
         app.scheduleLocalNotification(notifyAlarm)
     }
 
     override func viewWillDisappear(animated: Bool) {
-        Const.sharedInstance.setNotificationTurnedOn(notificationState.on)
+        StorageHelper.sharedInstance.setNotificationTurnedOn(notificationState.on)
     }
 
     @IBAction func notificationStateChanged(sender: UISwitch) {
-        Const.sharedInstance.setNotificationTurnedOn(sender.on)
+        StorageHelper.sharedInstance.setNotificationTurnedOn(sender.on)
     }
 }
 
