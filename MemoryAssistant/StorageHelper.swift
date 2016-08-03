@@ -12,47 +12,47 @@ class StorageHelper {
 
     let defaults = NSUserDefaults.standardUserDefaults()
 
-    let NOTIFICATION_TURN_ON = "notificationState"
+    let notificationTurnOn = "notificationState"
 
-    let FIRST_LAUNCH = "firtslaunch"
+    let firstLaunch = "firtslaunch"
 
-    let NOTIFICATION_TEXT = "notificationtext"
-    let NOTIFICATION_PERIODICITY = "notificationperiodicity"
+    let notificationTextKey = "notificationtext"
+    let notificationPeriodicity = "notificationperiodicity"
 
-    let DEFAULT_PERIODICITY = Const.MINUTE * 15 // in seconds
-    let DEFAULT_NOTIFICATION_TEXT = "Выровняй спину!"
+    let defaultPeriodicity = Const.MINUTE * 15 // in seconds
+    let defaultNotificationText = "Выровняй спину!"
 
     static let sharedInstance = StorageHelper()
 
     func isFirstLaunch() -> Bool {
-        return !defaults.boolForKey(FIRST_LAUNCH);
+        return !defaults.boolForKey(firstLaunch);
     }
 
     func setFirstLaunched() {
-        defaults.setBool(true, forKey: FIRST_LAUNCH)
+        defaults.setBool(true, forKey: firstLaunch)
     }
 
     func isNotificationTurnedOn() -> Bool {
-        return isFirstLaunch() ? true : defaults.boolForKey(NOTIFICATION_TURN_ON);
+        return isFirstLaunch() ? true : defaults.boolForKey(notificationTurnOn);
     }
 
     func setNotificationTurnedOn(value: Bool) {
-        defaults.setBool(value, forKey: NOTIFICATION_TURN_ON)
+        defaults.setBool(value, forKey: notificationTurnOn)
     }
 
     func notificationText() -> String {
-        return isFirstLaunch() ? DEFAULT_NOTIFICATION_TEXT : defaults.stringForKey(NOTIFICATION_TEXT)!
+        return isFirstLaunch() ? defaultNotificationText : defaults.stringForKey(notificationTextKey)!
     }
 
     func notificationText(text: String) {
-        defaults.setValue(text.isEmpty ? DEFAULT_NOTIFICATION_TEXT: text, forKey: NOTIFICATION_TEXT)
+        defaults.setValue(text.isEmpty ? defaultNotificationText: text, forKey: notificationTextKey)
     }
 
     func periodicity() -> Int { // in seocnds
-        return isFirstLaunch() ? DEFAULT_PERIODICITY : defaults.integerForKey(NOTIFICATION_PERIODICITY)
+        return isFirstLaunch() ? defaultPeriodicity : defaults.integerForKey(notificationPeriodicity)
     }
 
     func periodicity(value: Int) { // in seocnds
-        defaults.setInteger(value, forKey: NOTIFICATION_PERIODICITY)
+        defaults.setInteger(value, forKey: notificationPeriodicity)
     }
 }
