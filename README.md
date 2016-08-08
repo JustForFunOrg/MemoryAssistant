@@ -1,4 +1,4 @@
 # MemoryAssistant
-A tiny attempt to help with Holding the back!
+A tiny attempt to help with reminders on Apple Watch.
 
-This app will send notification to your iWatch to help with holding the back, because nowadays it becomes a big troble with health.
+This app will send notification to your Apple Watch with specified intervals.
